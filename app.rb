@@ -44,7 +44,7 @@ post '/' do
             type: 'text',
             text: event.message['text']
           }
-          is_black_list = black_list.include? event.source["userId"]
+          is_black_list = black_list.include? event["source"]["userId"]
           if is_black_list
             message["text"] = "#{message['text']} #ตอบตามมารยาท"
           end
