@@ -8,7 +8,7 @@ def client
     @client ||= Line::Bot::Client.new { |config|
       config.channel_id = ENV["channel"]
       config.channel_secret = ENV["secret"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    #   config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
 end
 
@@ -20,7 +20,8 @@ end
 post '/' do
     body = request.body.read
 
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    signature = request.env['x-line-signature']
+    logger.info "signature = #{signature}"
     unless client.validate_signature(body, signature)
         error 400 do 'Bad Request' end
     end
