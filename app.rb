@@ -4,6 +4,8 @@ require 'yaml'
 
 require 'line/bot'
 
+ิblack_list = ['U261a2a2e6ad61b184013fd78284bdd7a']
+
 def client
     @client ||= Line::Bot::Client.new { |config|
       config.channel_id = ENV["LINE_CHANNEL_ID"]
@@ -42,6 +44,10 @@ post '/' do
             type: 'text',
             text: event.message['text']
           }
+          is_black_list = black_list.include? event.source["userId"]
+          if is_black_list
+            message["text"] = "#{message['text']} #ตอบตามมารยาท"
+          end
           client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
           response = client.get_message_content(event.message['id'])
