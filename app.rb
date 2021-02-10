@@ -4,7 +4,7 @@ require 'yaml'
 
 require 'line/bot'
 
-black_list = ['U261a2a2e6ad61b184013fd78284bdd7a']
+black_list = ['U261a2a2e6ad61b184013fd78284bdd7a', 'U54ab4ed9c5c8d1884d762266713be048']
 
 def client
     @client ||= Line::Bot::Client.new { |config|
